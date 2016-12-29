@@ -1,0 +1,22 @@
+<Panel ux:Class="Search">
+	<Router ux:Dependency="router" />
+	<JavaScript File="Search.js" />
+	<DockPanel>
+		<Panel Dock="Top" Height="48" Color="#127799">
+			<Grid Columns="1*,1*,1*">
+				<Image File="../Assets/arrow.png" Alignment="Left" Clicked="{goBack}" />
+				<TextInput TextColor="White" PlaceholderText="search" PlaceholderColor="#ffffff80" Value="{category}"  Alignment="Center" />
+				<Text Clicked="{search}" TextColor="#fff" Alignment="Center" Value="Submit"/>
+			</Grid>
+		</Panel>
+		<ScrollView>
+			<StackPanel>
+				<Each Items="{jobs}">
+					<Text Value="{position}"/>
+				</Each>
+			</StackPanel>
+		</ScrollView>
+	</DockPanel>
+</Panel>
+
+

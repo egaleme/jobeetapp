@@ -1,0 +1,45 @@
+<Panel ux:Class="Segmentbar"  Height="50" Margin="20">
+  <string ux:Property="Selected" />
+  <object ux:Property="Options" />
+  <JavaScript>
+    
+    var srcOptions = this.Options.inner()
+
+    var options = srcOptions.map(function(option, index) {
+        return {
+          isFirst: index === 0,
+          isLast: index === srcOptions.length - 1,
+          option: option
+        }
+    });
+
+    var optionsCount = options.count()
+
+    module.exports = {
+      options, optionsCount
+    }
+  </JavaScript>
+<Rectangle ux:Class="segmentbuttton"  HitTestMode="LocalBounds" Height="40" >
+  <string ux:Property="Label" />
+  <Selectable Value="{Property Label}" />
+  <Text ux:Name="text" Alignment="Center" Color="#18f" Value="{Property Label}" />
+  <Stroke Color="#18f" />
+
+  <WhileSelected>
+    <Change text.Color="White" Duration="0.2"/>
+    <Change this.Color="#18f" Duration="0.2"/>
+  </WhileSelected>
+
+  <Tapped>
+    <ToggleSelection />
+  </Tapped>
+
+</Rectangle>
+
+  <StackPanel>
+    <Selection Value="{Property Selected}" MaxCount="1" MinCount="1"/>
+    <Each Items="{options}" >
+      <segmentbuttton Label="{option}" />
+    </Each>
+  </StackPanel>
+</Panel>

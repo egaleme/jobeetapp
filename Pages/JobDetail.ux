@@ -1,0 +1,3 @@
+<Panel ux:Class="JobDetail">
+	<Router ux:Dependency="router" />
+</Panel>

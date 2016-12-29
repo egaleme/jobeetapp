@@ -1,0 +1,36 @@
+<Panel ux:Class="SignUp">
+	<Router ux:Dependency="router" />
+	<TextInput ux:Class="BlackTextInput" Alignment="Center" TextColor="Black" Margin="10" PlaceholderColor="#a4a4a4" Opacity="0.7" />
+	<JavaScript File="SignUp.js" />
+	<DockPanel>
+		<DockPanel Dock="Top" Color="#127799">
+			<StatusBarBackground Dock="Top" />
+			<Panel Height="48">
+				<Text Alignment="Center" TextColor="White" FontSize="20">SignUp
+					<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+				</Text>
+				<Image File="../Assets/arrow.png" Alignment="Left" Clicked="{goBack}" />
+			</Panel>
+		</DockPanel>
+		<StackPanel Alignment="Top" Margin="20">
+			<Text TextColor="Red" Value="{err}" />
+			<BlackTextInput PlaceholderText="Firstname" Value="{firstname}" />
+			<Seperator Color="#c7cfce" Alignment="Bottom" Opacity="0.7" />
+			<BlackTextInput PlaceholderText="Lastname" Value="{lastname}" />
+			<Seperator Color="#c7cfce" Alignment="Bottom"  Opacity="0.7" />
+			<BlackTextInput PlaceholderText="Username" Value="{username}" />
+			<Seperator Color="#c7cfce" Alignment="Bottom" Opacity="0.7" />
+			<BlackTextInput PlaceholderText="Email" Value="{email}" />
+			<Seperator Color="#c7cfce" Alignment="Bottom" Opacity="0.7" />
+			<BlackTextInput PlaceholderText="Password" Value="{password}" IsPassword="true" />
+			<Seperator Color="#c7cfce" Alignment="Bottom" Opacity="0.7" />
+			<Panel Alignment="VerticalCenter" >
+	          <Rectangle Clicked="{createUser}" CornerRadius="80" Fill="#127799" Width="100" Height="40" Margin="10,50" >
+	            <Text TextColor="#ffffff" Alignment="Center">Sign Up
+	            </Text>
+	          </Rectangle>
+       	   </Panel>
+        </StackPanel>
+   </DockPanel>
+
+</Panel>

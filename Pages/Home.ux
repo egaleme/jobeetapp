@@ -1,0 +1,161 @@
+<Panel ux:Class="Home" Background="#fff">
+	<Router ux:Dependency="router" />
+	<Text ux:Class="BlackText" Opacity="0.8" TextColor="#000" />
+	<JavaScript File="Home.js" />
+	<EdgeNavigator ux:Name="EdgeNavigator">
+
+		<Sidebar Width="180" ux:Name="menu" EdgeNavigation.Edge="Left">
+			<JavaScript File="SideBar.js" />
+			<ActivatingAnimation>
+					<Change mainAppTranslation.X="180" />
+					<!-- Change to cross out -->
+					<Change topMenuTranslation.Y="0" />
+					<Change bottomMenuTranslation.Y="0" />
+					<Change middleRectangle.Opacity="0" Easing="CircularOut" />
+					<Change topMenuRotation.Degrees="45" Easing="ExponentialIn" />
+					<Change bottomMenuRotation.Degrees="-45" Easing="ExponentialIn" />
+					<Change topRectangle.Width="28" />
+					<Change bottomRectangle.Width="28" />
+			</ActivatingAnimation>
+		</Sidebar>
+		<Panel ux:Class="Sidebar" Background="#000">
+
+			<ScrollView>
+				<StackPanel>
+					<Text  TextColor="#94eced" Value="Jobeet" FontSize="30" Margin="20" Alignment="Center">
+						<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+					</Text>
+					<Text  TextColor="#94eced" Value="by gab aleme" Alignment="Center">
+						<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+					</Text>
+					<Grid ColumnCount="2" RowCount="2">
+
+							<Text Row="0" Column="0" Clicked="{goSignUp}" TextColor="#94eced" Value="SignUp" FontSize="20" Margin="20" Alignment="Center">
+								<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+								<WhileTrue Value="{isLoggedIn}">
+								<Scale Factor="0"/>
+							</WhileTrue>
+							</Text>
+							<Text Row="0" Column="1" Clicked="{goLogin}" TextColor="#94eced" Value="Login" FontSize="20" Margin="20" Alignment="Center">
+								<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+								<WhileTrue Value="{isLoggedIn}">
+								<Scale Factor="0"/>
+							</WhileTrue>
+							</Text>
+
+							<Text  Row="1" Column="0" TextColor="#94eced" Value="{loggedInUser}" FontSize="20" Margin="20" Alignment="Center">
+								<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+								<WhileFalse Value="{isLoggedIn}">
+								<Scale Factor="0"/>
+							</WhileFalse>
+							</Text>
+							<Text Row="1" Column="1" Clicked="{logout}" TextColor="#94eced" Value="Logout" FontSize="20" Margin="20" Alignment="Center">
+								<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+								<WhileFalse Value="{isLoggedIn}">
+								<Scale Factor="0"/>
+								</WhileFalse>
+							</Text>
+
+
+					</Grid>
+
+					<Text TextColor="White" Value="Job Sorting Options" Alignment="Center" Margin="10">
+							<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+					</Text>
+					<Segmentbar Options="{options}" Selected="{selected}" />
+
+				</StackPanel>
+			</ScrollView>
+		</Panel>
+		<DockPanel>
+			<Translation ux:Name="mainAppTranslation" />
+				<DockPanel Dock="Top">
+						<Panel Height="48">
+								<Grid Columns="auto, 1*, auto" Background="#127799" >
+									<Panel Margin="7,5,5,5" Height="32" Width="32" HitTestMode="LocalBounds">
+										<Clicked>
+											<Set EdgeNavigator.Active="menu" />
+										</Clicked>
+										<Rectangle ux:Name="topRectangle" Height="2" Width="26" Fill="#fff">
+											<Translation Y="-9" ux:Name="topMenuTranslation" />
+											<Rotation ux:Name="topMenuRotation" />
+										</Rectangle>
+										<Rectangle ux:Name="middleRectangle" Height="2" Width="26" Fill="#fff" />
+										<Rectangle ux:Name="bottomRectangle" Height="2" Width="26" Fill="#fff">
+											<Translation Y="9" ux:Name="bottomMenuTranslation" />
+											<Rotation ux:Name="bottomMenuRotation" />
+										</Rectangle>
+									</Panel>
+									<Text FontSize="20" Alignment="VerticalCenter" TextAlignment="Center" TextColor="White" >Job List
+										<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+									</Text>
+									<Panel Margin="5,5,7,5" Height="32" Width="32" HitTestMode="LocalBounds">
+											<Clicked Handler="{searchjobs}" />
+
+											<Circle Height="20" Width="20">
+												<Stroke Width="2" Brush="#fff" />
+											</Circle>
+											<Rectangle Width="7" Height="3" Fill="#fff">
+												<Translation X="8" Y="8" />
+												<Rotation Degrees="45" />
+											</Rectangle>
+									</Panel>
+								</Grid>
+							</Panel>
+						</DockPanel>
+
+				<!-- This is the main scroll area -->
+					<ScrollView>
+						<StackPanel Alignment="Top">
+							<Each Items="{jobs}">
+								<Panel>
+									 <Deferred>
+										<Seperator Color="#c7cfce" Alignment="Bottom" Width="100%" Opacity="0.7" />
+								<DockPanel>
+									<Circle Dock="Left" Width="60" Height="60" Color="{expired}" Margin="10,0,10,0">
+										<BlackText  Value="{firstChar}" FontSize="30" Alignment="Center">
+											<Font File="../Assets/fonts/AlegreyaSans-Bold.otf" />
+										</BlackText>
+
+									</Circle>
+									<Grid Alignment="CenterLeft" ColumnCount="2" RowCount="5"  Margin="12" >
+                  						<BlackText Value="{position}" Row="0" Column="0"/>
+                  						<BlackText Value="{company}" Row="1" Column="0"/>
+                  						<BlackText  Value="{location}" Row="2" Column="0" />
+                 						<BlackText Value="{deadLine}" Row="3" Column="1" />
+                 						<BlackText Value="Apply before" Row="3" Column="0" />
+                  						<Panel Row="4" Column="1">
+                  							<WhileFalse Value="{isLoggedIn}">
+								<Scale Factor="0"/>
+								</WhileFalse>
+                  						  <Grid Columns="1*,1*">
+                       						 <Rectangle Clicked="{}"  Margin="10"  CornerRadius="100" Fill="#b37f59" Width="40" Height="20">
+                         						 <Text TextColor="#ffffff" FontSize="10" Alignment="Center">Edit</Text>
+                       						</Rectangle>
+                       						<Rectangle Clicked="{}" Margin="10" CornerRadius="100" Fill="Red" Width="40" Height="20">
+                        					  <Text TextColor="#ffffff" FontSize="10" Alignment="Center">Delete</Text>
+                      						 </Rectangle>
+                     					 </Grid>
+                 						 </Panel>
+                					</Grid>
+													<LayoutAnimation>
+														<Move RelativeTo="LayoutChange" Y="1" Duration="0.8" Easing="ElasticIn" />
+													</LayoutAnimation>
+
+													<AddingAnimation>
+														<Move RelativeTo="Size" X="1" Duration="0.3" Easing="CircularIn" />
+													</AddingAnimation>
+
+													<RemovingAnimation>
+														<Move RelativeTo="Size" X="-1" Duration="0.4" Easing="CircularOut" />
+													</RemovingAnimation>
+                				</DockPanel>
+                			 </Deferred>
+                		</Panel>
+                			</Each>
+						</StackPanel>
+					</ScrollView>
+
+		</DockPanel>
+	</EdgeNavigator>
+</Panel>
